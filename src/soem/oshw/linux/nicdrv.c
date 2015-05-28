@@ -253,6 +253,7 @@ int ecx_getindex(ecx_portt *port)
    /* try to find unused index */
    while ((port->rxbufstat[idx] != EC_BUF_EMPTY) && (cnt < EC_MAXBUF))
    {
+      //printf("rxbufstat[%u] = %u\n", idx, ec_rxbufstat[idx]);
       idx++;
       cnt++;
       if (idx >= EC_MAXBUF) 
@@ -394,6 +395,8 @@ int ecx_inframe(ecx_portt *port, int idx, int stacknumber)
    ec_stackT *stack;
    ec_bufT *rxbuf;
 
+   static uint8 last_recvd_idx = 0;
+
    if (!stacknumber)
    {
       stack = &(port->stack);
@@ -407,6 +410,7 @@ int ecx_inframe(ecx_portt *port, int idx, int stacknumber)
    /* check if requested index is already in buffer ? */
    if ((idx < EC_MAXBUF) && ((*stack->rxbufstat)[idx] == EC_BUF_RCVD)) 
    {
+      printf("ec_inframe got index %u from buffer\n", idx);
       l = (*rxbuf)[0] + ((uint16)((*rxbuf)[1] & 0x0f) << 8);
       /* return WKC */
       rval = ((*rxbuf)[l] + ((uint16)(*rxbuf)[l + 1] << 8));
@@ -444,18 +448,23 @@ int ecx_inframe(ecx_portt *port, int idx, int stacknumber)
                /* check if index exist? */
                if (idxf < EC_MAXBUF) 
                {
+                  printf("ec_inframe expected index %u, received %u, last received was %u; discarding packet\n", idx, idxf, last_recvd_idx);
+                  /*
+
                   rxbuf = &(*stack->rxbuf)[idxf];
-                  /* put it in the buffer array (strip ethernet header) */
+                  // put it in the buffer array (strip ethernet header)
                   memcpy(rxbuf, &(*stack->tempbuf)[ETH_HEADERSIZE], (*stack->txbuflength)[idxf] - ETH_HEADERSIZE);
-                  /* mark as received */
+                  // mark as received
                   (*stack->rxbufstat)[idxf] = EC_BUF_RCVD;
                   (*stack->rxsa)[idxf] = ntohs(ehp->sa1);
+                  */
                }
                else 
                {
                   /* strange things happend */
                }
             }
+            last_recvd_idx = idxf;
          }
       }
       pthread_mutex_unlock( &(port->rx_mutex) );

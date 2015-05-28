@@ -609,14 +609,20 @@ void EthercatMasterWithThread::updateSensorActorValues() {
         }
         communicationErrors++;
       } else {
+        if (communicationErrors > 0) {
+          LOG(warning) << "Restored Communication (after " << communicationErrors << " errors)";
+        }
         communicationErrors = 0;
       }
 
       if (communicationErrors > maxCommunicationErrors) {
-        LOG(error) << "Lost EtherCAT connection";
+        LOG(error) << "Lost EtherCAT connection: " << communicationErrors;
+        #define CLOSE_ETHERCAT
+        #ifdef CLOSE_ETHERCAT
         this->closeEthercat();
         stopThread = true;
         break;
+        #endif
       }
 
       if (ec_iserror())

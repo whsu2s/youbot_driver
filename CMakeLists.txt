@@ -45,7 +45,7 @@ include_directories(
 	${INCLUDE_DIRS}
 	${catkin_INCLUDE_DIRS}
 )
-link_directories(${catkin_LIBRARY_DIRS})
+
 add_definitions(-DUSE_ROS_LOGGING)
 
 ########### CppUnit and tests ###########

@@ -24,13 +24,13 @@ if(WIN32)
 		include/youbot_driver/soem/oshw/win32
 		${WINPCAP_INCLUDE_DIRS}
 	)
-else(WIN32)
+else()
 	set(INCLUDE_DIRS
 		include
 		include/youbot_driver/soem/osal
 		include/youbot_driver/soem/oshw/linux
 	)
-endif(WIN32)
+endif()
 
 ## Note exported include dirs for install in cmake/config.cmake
 catkin_package(
@@ -53,9 +53,9 @@ find_package(CppUnit)
 IF(CppUnit_FOUND)
 	message(STATUS "SUCCESSFUL: CPP_UNIT found")
 	add_subdirectory(src/testing)
-ELSE(CppUnit_FOUND)
+else()
 #	MESSAGE(STATUS "WARNING: CPP_UNIT not found")
-ENDIF (CppUnit_FOUND)
+endif()
 
 
 ########### Doxygen ###########

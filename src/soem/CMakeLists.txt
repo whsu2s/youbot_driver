@@ -27,7 +27,7 @@ else()
 	)		
 endif()
 
-ADD_LIBRARY(soem 
+add_library(soem 
 	ethercatbase.c 
 	ethercatcoe.c 
 	ethercatconfig.c 
@@ -39,7 +39,7 @@ ADD_LIBRARY(soem
 	${SOEM_OS_SOURCE_FILES}
 )
 
-INSTALL(TARGETS soem 
+install(TARGETS soem 
   ARCHIVE DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   LIBRARY DESTINATION ${CATKIN_PACKAGE_LIB_DESTINATION}
   RUNTIME DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}

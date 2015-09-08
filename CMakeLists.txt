@@ -50,7 +50,7 @@ add_definitions(-DUSE_ROS_LOGGING)
 
 ########### CppUnit and tests ###########
 find_package(CppUnit)
-IF(CppUnit_FOUND)
+if(CppUnit_FOUND)
 	message(STATUS "SUCCESSFUL: CPP_UNIT found")
 	add_subdirectory(src/testing)
 else()

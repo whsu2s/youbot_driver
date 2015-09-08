@@ -4,6 +4,8 @@ project(youbot_driver)
 find_package(catkin REQUIRED COMPONENTS roscpp rosconsole)
 find_package(Boost REQUIRED COMPONENTS thread date_time filesystem system regex)
 
+list(APPEND CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
+
 if(WIN32)
 	add_definitions(-D_USE_MATH_DEFINES)    # get M_PI under Windows
 	add_definitions(-DWIN32_LEAN_AND_MEAN)  # avoid inclusion of WinSock.h by windows.h, as we need WinSock2.h
@@ -11,7 +13,6 @@ if(WIN32)
 	add_definitions(/wd4800)                # disable warning: variable set to boolean value
 
 	# need WinPcap library, using own cmake find file
-	set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 	find_package(WinPcap REQUIRED)
 endif()
 
@@ -39,7 +40,6 @@ catkin_package(
 	DEPENDS Boost
 	CFG_EXTRAS config.cmake
 )
-set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake")
 
 include_directories(
 	${INCLUDE_DIRS}

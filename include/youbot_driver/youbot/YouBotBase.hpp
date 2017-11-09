@@ -110,6 +110,13 @@ class YouBotBase {
     ///@param angularVelocity is the rotational velocity around the center of the YouBot
     void setBaseVelocity(const quantity<si::velocity>& longitudinalVelocity, const quantity<si::velocity>& transversalVelocity, const quantity<si::angular_velocity>& angularVelocity);
 
+    ///commands the wheels in wheel velocities
+    ///@param wheel1Velocity is the velocity of front left wheel
+    ///@param wheel2Velocity is the velocity of front right wheel
+    ///@param wheel3Velocity is the velocity of rear right wheel
+    ///@param wheel4Velocity is the velocity of rear left wheel
+    void setWheelVelocity(const quantity<si::angular_velocity>& wheel1Velocity, const quantity<si::angular_velocity>& wheel2Velocity, const quantity<si::angular_velocity>& wheel3Velocity, const quantity<si::angular_velocity>& wheel4Velocity);
+
     ///This class represents the kinematic of the YouBot 
     FourSwedishWheelOmniBaseKinematic youBotBaseKinematic;
 

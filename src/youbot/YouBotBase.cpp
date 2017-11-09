@@ -244,6 +244,31 @@ void YouBotBase::setBaseVelocity(const quantity<si::velocity>& longitudinalVeloc
   // Bouml preserved body end 0004DD71
 }
 
+///commands the wheel velocities
+///@param wheel1Velocity is the velocity of front left wheel
+///@param wheel2Velocity is the velocity of front right wheel
+///@param wheel3Velocity is the velocity of rear right wheel
+///@param wheel4Velocity is the velocity of rear left wheel
+void YouBotBase::setWheelVelocity(const quantity<si::angular_velocity>& wheel1Velocity, const quantity<si::angular_velocity>& wheel2Velocity, const quantity<si::angular_velocity>& wheel3Velocity, const quantity<si::angular_velocity>& wheel4Velocity) {
+
+    std::vector<quantity<angular_velocity> > wheelVelocities;
+    JointVelocitySetpoint setVel;
+
+    if (wheelVelocities.size() < BASEJOINTS)
+      throw std::out_of_range("To less wheel velocities");
+
+    ethercatMaster.AutomaticSendOn(false);
+    setVel.angularVelocity = wheel1Velocity;
+    joints[0].setData(setVel);
+    setVel.angularVelocity = wheel2Velocity;
+    joints[1].setData(setVel);
+    setVel.angularVelocity = wheel3Velocity;
+    joints[2].setData(setVel);
+    setVel.angularVelocity = wheel4Velocity;
+    joints[3].setData(setVel);
+    ethercatMaster.AutomaticSendOn(true);
+}
+
 ///commands positions or angles to all base joints
 ///all positions will be set at the same time
 ///@param JointData the to command positions

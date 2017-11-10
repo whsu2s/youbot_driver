@@ -269,6 +269,7 @@ void YouBotBase::setWheelVelocity(const quantity<si::angular_velocity>& wheel1Ve
     ethercatMaster.AutomaticSendOn(true);
 }
 
+
 ///commands positions or angles to all base joints
 ///all positions will be set at the same time
 ///@param JointData the to command positions

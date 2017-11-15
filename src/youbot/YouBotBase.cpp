@@ -251,11 +251,8 @@ void YouBotBase::setBaseVelocity(const quantity<si::velocity>& longitudinalVeloc
 ///@param wheel4Velocity is the velocity of rear left wheel
 void YouBotBase::setWheelVelocity(const quantity<si::angular_velocity>& wheel1Velocity, const quantity<si::angular_velocity>& wheel2Velocity, const quantity<si::angular_velocity>& wheel3Velocity, const quantity<si::angular_velocity>& wheel4Velocity) {
 
-    std::vector<quantity<angular_velocity> > wheelVelocities;
     JointVelocitySetpoint setVel;
 
-    if (wheelVelocities.size() < BASEJOINTS)
-      throw std::out_of_range("To less wheel velocities");
 
     ethercatMaster.AutomaticSendOn(false);
     setVel.angularVelocity = wheel1Velocity;
